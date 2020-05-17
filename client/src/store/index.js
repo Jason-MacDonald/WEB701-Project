@@ -13,6 +13,7 @@ export default new Vuex.Store({
   mutations: {
     // ##### REFRESH #####
     refreshEvents(state, events) {
+      console.log(events);
       state.events = events;
     },
     refreshItems(state, items) {
@@ -38,6 +39,11 @@ export default new Vuex.Store({
       const endpoint = await axios.get("http://localhost:3000/api/members");
       var members = endpoint.data;
       commit("refreshMembers", members);
+    },
+    // ##### POST #####
+    async postNewEvent(unused, data) {
+      await axios.post("http://localhost:3000/api/event", data);
+      this.dispatch("getEvents");
     },
   },
   modules: {},

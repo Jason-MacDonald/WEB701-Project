@@ -4,6 +4,7 @@ const Event = require("../models/event");
 
 // ##### POST EVENT #####
 router.post("/event", (req, res) => {
+  console.log(req.body);
   if (!req.body.name) {
     res.status(400);
     res.json({
@@ -22,7 +23,7 @@ router.post("/event", (req, res) => {
 
 // ##### GET ALL EVENTS. #####
 router.get("/events", (req, res) => {
-  Event.findAll()
+  Event.findAll({ order: [["id", "DESC"]] })
     .then((events) => {
       res.json(events);
     })

@@ -30,6 +30,7 @@
     </v-app-bar>
 
     <v-content>
+      <NewEvent />
       <Events />
       <Items />
       <Members />
@@ -41,6 +42,7 @@
 import Events from "./components/Events";
 import Items from "./components/Items";
 import Members from "./components/Members";
+import NewEvent from "./components/NewEvent";
 
 export default {
   name: "App",
@@ -48,7 +50,8 @@ export default {
   components: {
     Events,
     Items,
-    Members
+    Members,
+    NewEvent
   },
 
   data: () => ({
