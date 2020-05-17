@@ -28,34 +28,20 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
+    <br />
+    <br />
+    <br />
+    <router-link to="/">Home</router-link>
+    <router-link to="/events">Events</router-link>
+    <router-link to="/members">Members</router-link>
+    <router-link to="/items">Items</router-link>
 
-    <v-content>
-      <NewEvent />
-      <Events />
-      <Items />
-      <Members />
-    </v-content>
+    <router-view />end
   </v-app>
 </template>
 
 <script>
-import Events from "./components/Events";
-import Items from "./components/Items";
-import Members from "./components/Members";
-import NewEvent from "./components/NewEvent";
-
 export default {
-  name: "App",
-
-  components: {
-    Events,
-    Items,
-    Members,
-    NewEvent
-  },
-
-  data: () => ({
-    //
-  })
+  name: "App"
 };
 </script>
