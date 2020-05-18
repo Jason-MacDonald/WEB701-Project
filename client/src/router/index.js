@@ -1,9 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Events from "../views/Events.vue";
-import Members from "../views/Members.vue";
-import Items from "../views/Items.vue";
+import vHome from "../views/vHome.vue";
+import vEvents from "../views/vEvents.vue";
+import vEvent from "../views/vEvent.vue";
+import vMembers from "../views/vMembers.vue";
+import vItems from "../views/vItems.vue";
+import vNewEvent from "../views/vNewEvent.vue";
 
 Vue.use(VueRouter);
 
@@ -11,22 +13,32 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: vHome,
   },
   {
     path: "/events",
     name: "Events",
-    component: Events,
+    component: vEvents,
+  },
+  {
+    path: "/event",
+    name: "Event",
+    component: vEvent,
   },
   {
     path: "/members",
     name: "Members",
-    component: Members,
+    component: vMembers,
   },
   {
     path: "/items",
     name: "Items",
-    component: Items,
+    component: vItems,
+  },
+  {
+    path: "/new-event",
+    name: "NewEvent",
+    component: vNewEvent,
   },
 ];
 

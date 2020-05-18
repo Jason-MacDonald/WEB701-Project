@@ -42,6 +42,7 @@ export default new Vuex.Store({
     },
     // ##### POST #####
     async postNewEvent(unused, data) {
+      console.log(data);
       await axios.post("http://localhost:3000/api/event", data);
       this.dispatch("getEvents");
     },

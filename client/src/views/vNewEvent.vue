@@ -1,17 +1,16 @@
 <template>
   <div>
-    <h2>Events:</h2>
-    <Events />
+    <NewEvent />
   </div>
 </template>
 
 <script>
-import Events from "@/components/Events.vue";
+import NewEvent from "@/components/NewEvent.vue";
 
 export default {
   name: "Home",
   components: {
-    Events
+    NewEvent
   }
 };
 </script>

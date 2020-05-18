@@ -15,6 +15,12 @@ module.exports = db.sequelize.define(
     description: {
       type: Sequelize.STRING,
     },
+    startDate: {
+      type: Sequelize.DATE,
+    },
+    endDate: {
+      type: Sequelize.DATE,
+    },
   },
   {
     timestamps: false,
