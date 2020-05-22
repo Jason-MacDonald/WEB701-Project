@@ -6,6 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    selectedEventIndex: 0,
+    selectedItemIndex: 0,
+    selectedMemberIndex: 0,
     events: [],
     items: [],
     members: [],
@@ -13,7 +16,6 @@ export default new Vuex.Store({
   mutations: {
     // ##### REFRESH #####
     refreshEvents(state, events) {
-      console.log(events);
       state.events = events;
     },
     refreshItems(state, items) {
@@ -22,9 +24,20 @@ export default new Vuex.Store({
     refreshMembers(state, members) {
       state.members = members;
     },
+    // ##### UPDATE INDEX #####
+    updateSelectedEventIndex(state, index) {
+      state.selectedEventIndex = index;
+    },
+    updateSelectedItemIndex(state, index) {
+      state.selectedItemIndex = index;
+    },
+    updateSelectedMemberIndex(state, index) {
+      state.selectedMemberIndex = index;
+    },
   },
   actions: {
-    // ##### GET ALL #####
+    // ##### API CALLS #####
+    // ### GET ALL ###
     async getEvents({ commit }) {
       const endpoint = await axios.get("http://localhost:3000/api/events");
       var events = endpoint.data;
@@ -40,11 +53,25 @@ export default new Vuex.Store({
       var members = endpoint.data;
       commit("refreshMembers", members);
     },
-    // ##### POST #####
+    // ### POST ###
     async postNewEvent(unused, data) {
-      console.log(data);
       await axios.post("http://localhost:3000/api/event", data);
       this.dispatch("getEvents");
+    },
+    async postNewItem(unused, data) {
+      await axios.post("http://localhost:3000/api/item", data);
+      this.dispatch("getItem");
+    },
+    // ##### STORE MANIPULATIN #####
+    // ### SET INDEX ###
+    async selectEvent({ commit }, index) {
+      commit("updateSelectedEventIndex", index);
+    },
+    async selectItem({ commit }, index) {
+      commit("updateSelectedItemIndex", index);
+    },
+    async selectMember({ commit }, index) {
+      commit("updateSelectedMemberIndex", index);
     },
   },
   modules: {},

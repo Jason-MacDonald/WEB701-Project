@@ -9,7 +9,7 @@
 import Members from "@/components/Members.vue";
 
 export default {
-  name: "Home",
+  name: "vMembers",
   components: {
     Members
   }

@@ -8,7 +8,7 @@
 import NewEvent from "@/components/NewEvent.vue";
 
 export default {
-  name: "Home",
+  name: "vNewEvent",
   components: {
     NewEvent
   }

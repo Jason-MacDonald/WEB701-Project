@@ -9,7 +9,7 @@
 import Events from "@/components/Events.vue";
 
 export default {
-  name: "Home",
+  name: "vEvents",
   components: {
     Events
   }

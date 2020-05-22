@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Items:</h2>
+    <v-btn to="/new-item">Add Item</v-btn>
     <Items />
   </div>
 </template>
@@ -9,7 +9,7 @@
 import Items from "@/components/Items.vue";
 
 export default {
-  name: "Home",
+  name: "vItems",
   components: {
     Items
   }

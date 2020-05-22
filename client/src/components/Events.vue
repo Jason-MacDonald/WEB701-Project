@@ -11,7 +11,7 @@
             {{ event.endDate | formatTime }}
           </p>
           <router-link style="text-decoration: none; color: inherit;" to="/event">
-            <p class="px-2 py-1">See More</p>
+            <p @click="setSelectedEventIndex(index)" class="px-2 py-1">See More</p>
           </router-link>
         </v-card>
       </div>
@@ -25,6 +25,11 @@ export default {
 
   created() {
     this.$store.dispatch("getEvents");
+  },
+  methods: {
+    setSelectedEventIndex(index) {
+      this.$store.dispatch("selectEvent", index);
+    }
   }
 };
 </script>

@@ -22,7 +22,7 @@ router.post("/item", (req, res) => {
 
 // ##### GET ALL ITEMS #####
 router.get("/items", (req, res) => {
-  Item.findAll()
+  Item.findAll({ order: [["id", "DESC"]] })
     .then((items) => {
       res.json(items);
     })

@@ -5,6 +5,9 @@
         <v-card class>
           <p class="px-2 pt-1">{{item.name}}</p>
           <p class="px-2 pb-1">{{item.description}}</p>
+          <router-link style="text-decoration: none; color: inherit;" to="/item">
+            <p @click="setSelectedItemIndex(index)" class="px-2 py-1">See More</p>
+          </router-link>
         </v-card>
       </div>
     </v-card>
@@ -17,6 +20,11 @@ export default {
 
   created() {
     this.$store.dispatch("getItems");
+  },
+  methods: {
+    setSelectedItemIndex(index) {
+      this.$store.dispatch("selectItem", index);
+    }
   }
 };
 </script>

@@ -5,6 +5,9 @@
         <v-card class>
           <p class="px-2 pt-1">{{member.name}}</p>
           <p class="px-2 pb-1">{{member.description}}</p>
+          <router-link style="text-decoration: none; color: inherit;" to="/member">
+            <p @click="setSelectedMemberIndex(index)" class="px-2 py-1">See More</p>
+          </router-link>
         </v-card>
       </div>
     </v-card>
@@ -17,6 +20,11 @@ export default {
 
   created() {
     this.$store.dispatch("getMembers");
+  },
+  methods: {
+    setSelectedMemberIndex(index) {
+      this.$store.dispatch("selectMember", index);
+    }
   }
 };
 </script>
