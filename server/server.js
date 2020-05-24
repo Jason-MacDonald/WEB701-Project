@@ -1,11 +1,12 @@
 var express = require("express");
+var cors = require("cors");
 var bodyParser = require("body-parser");
 
 var events = require("./routes/events");
 var members = require("./routes/members");
 var items = require("./routes/items");
 
-var cors = require("cors");
+var users = require("./routes/users");
 
 var port = 3000;
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api", events);
 app.use("/api", members);
 app.use("/api", items);
+app.use("/api", users);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

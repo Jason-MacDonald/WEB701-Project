@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../database/db.js");
 
 module.exports = db.sequelize.define(
-  "item",
+  "user",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -12,7 +12,10 @@ module.exports = db.sequelize.define(
     name: {
       type: Sequelize.STRING,
     },
-    description: {
+    email: {
+      type: Sequelize.STRING,
+    },
+    password: {
       type: Sequelize.STRING,
     },
   },
