@@ -8,6 +8,9 @@
         <p
           class="px-2 pb-1"
         >{{ this.$store.state.items[this.$store.state.selectedItemIndex].description }}</p>
+        <div class="px-2 pb-4">
+          <v-btn @click="deleteEvent()">Delete Item</v-btn>
+        </div>
       </v-card>
     </v-card>
   </v-container>
@@ -15,6 +18,13 @@
 
 <script>
 export default {
-  name: "Item"
+  name: "Item",
+  methods: {
+    deleteEvent() {
+      var id = this.$store.state.items[this.$store.state.selectedItemIndex].id;
+      this.$store.dispatch("deleteItem", id);
+      this.$router.push("/items");
+    }
+  }
 };
 </script>

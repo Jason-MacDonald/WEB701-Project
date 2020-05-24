@@ -62,6 +62,14 @@ export default new Vuex.Store({
       await axios.post("http://localhost:3000/api/item", data);
       this.dispatch("getItem");
     },
+    // ### DELETE ###
+    async deleteEvent(unused, id) {
+      await axios.delete("http://localhost:3000/api/event/" + id);
+    },
+    async deleteItem(unused, id) {
+      console.log(id);
+      await axios.delete("http://localhost:3000/api/item/" + id);
+    },
     // ##### STORE MANIPULATIN #####
     // ### SET INDEX ###
     async selectEvent({ commit }, index) {

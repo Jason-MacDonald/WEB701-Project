@@ -13,6 +13,10 @@ import vMember from "../views/vMember.vue";
 import vItems from "../views/vItems.vue";
 import vItem from "../views/vItem.vue";
 import vNewItem from "../views/vNewItem.vue";
+// ##### ACCOUNT #####
+import vAccount from "../views/vAccount.vue";
+import vLogin from "../views/vLogin.vue";
+import vRegister from "../views/vRegister.vue";
 
 Vue.use(VueRouter);
 
@@ -65,6 +69,22 @@ const routes = [
     path: "/new-item",
     name: "NewItem",
     component: vNewItem,
+  },
+  // ##### ACCOUNT #####
+  {
+    path: "/account",
+    name: "Account",
+    component: vAccount,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: vLogin,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: vRegister,
   },
 ];
 
