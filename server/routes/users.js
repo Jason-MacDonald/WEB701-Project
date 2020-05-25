@@ -5,7 +5,9 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-process.env.SECRET_KEY = "secret";
+require("dotenv").config();
+
+//process.env.ACCESS_TOKEN_SECRET = "secret";
 
 // ##### POST USER #####
 router.post("/users/register", (req, res) => {
@@ -20,6 +22,7 @@ router.post("/users/register", (req, res) => {
   })
     .then((user) => {
       if (!user) {
+        //10? generates salt for hashed password.
         bcrypt.hash(req.body.password, 10, (err, hash) => {
           userData.password = hash;
           User.create(userData)
@@ -46,10 +49,16 @@ router.post("/users/login", (req, res) => {
     .then((user) => {
       if (user) {
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-            expiresIn: 1440,
-          });
-          res.send(token);
+          let accessToken = jwt.sign(
+            user.dataValues,
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+              expiresIn: 1440,
+            }
+          );
+          res.send(accessToken);
+        } else {
+          res.status(400).json({ error: "Incorrect details." });
         }
       } else {
         res.status(400).json({ error: "User does not exist" });
@@ -65,6 +74,19 @@ router.get("/users", (req, res) => {
   User.findAll()
     .then((users) => {
       res.json(users);
+    })
+    .catch((err) => {
+      res.send("Error: " + err);
+    });
+});
+
+// ##### GET USER #####
+router.get("/users/account", authenticateToken, (req, res) => {
+  User.findOne({
+    where: { email: req.user.email },
+  })
+    .then((user) => {
+      res.json(user);
     })
     .catch((err) => {
       res.send("Error: " + err);
@@ -104,5 +126,18 @@ router.delete("/user/:id", (req, res) => {
       res.send("Error: " + err);
     });
 });
+
+// ##### MIDDLEWARE #####
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
 
 module.exports = router;
