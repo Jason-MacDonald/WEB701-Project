@@ -44,6 +44,9 @@ export default new Vuex.Store({
       state.token = token;
       localStorage.setItem("jwt", token);
     },
+    clearAccount(state) {
+      state.account = null;
+    },
   },
   actions: {
     // ##### API CALLS #####
@@ -85,6 +88,10 @@ export default new Vuex.Store({
       const endpoint = await axios.get("http://localhost:3000/api/members");
       var members = endpoint.data;
       commit("refreshMembers", members);
+    },
+    async getBids(unused, id) {
+      const endpoint = await axios.get("http://localhost:3000/api/bids/" + id);
+      return endpoint.data;
     },
     // ### POST ###
     async postNewEvent(unused, data) {

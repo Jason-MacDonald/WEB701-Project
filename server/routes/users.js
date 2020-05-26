@@ -15,6 +15,7 @@ router.post("/users/register", (req, res) => {
     name: "",
     email: req.body.email,
     password: req.body.password,
+    type: "User",
   };
 
   User.findOne({

@@ -2,24 +2,24 @@ const Sequelize = require("sequelize");
 const db = require("../database/db.js");
 
 module.exports = db.sequelize.define(
-  "user",
+  "bid",
   {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    itemID: {
+      type: Sequelize.INTEGER,
+    },
+    userID: {
+      type: Sequelize.INTEGER,
+    },
+    userEmail: {
       type: Sequelize.STRING,
     },
-    email: {
-      type: Sequelize.STRING,
-    },
-    password: {
-      type: Sequelize.STRING,
-    },
-    type: {
-      type: Sequelize.STRING,
+    bid: {
+      type: Sequelize.DECIMAL,
     },
   },
   {

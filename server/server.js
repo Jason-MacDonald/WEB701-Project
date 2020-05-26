@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var events = require("./routes/events");
 var members = require("./routes/members");
 var items = require("./routes/items");
+var bids = require("./routes/bids");
 
 var users = require("./routes/users");
 
@@ -19,6 +20,7 @@ app.use("/api", events);
 app.use("/api", members);
 app.use("/api", items);
 app.use("/api", users);
+app.use("/api", bids);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

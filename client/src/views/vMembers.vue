@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Members:</h2>
     <Members />
   </div>
 </template>

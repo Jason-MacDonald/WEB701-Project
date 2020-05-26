@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-btn to="/new-item">Add Item</v-btn>
+    <div class="mx-3" v-if="this.$store.state.account != null">
+      <div class="mx-3" v-if="this.$store.state.account.type == 'Member'">
+        <v-btn to="/new-item">Add Item</v-btn>
+      </div>
+    </div>
+
     <Items />
   </div>
 </template>

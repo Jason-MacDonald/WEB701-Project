@@ -39,12 +39,14 @@ export default {
     ]
   }),
   methods: {
-    register() {
+    async register() {
       var user = {
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch("register", user);
+      await this.$store.dispatch("register", user);
+      await this.$store.dispatch("login", user);
+      this.$router.push("/account");
     }
   }
 };

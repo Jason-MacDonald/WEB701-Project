@@ -46,19 +46,29 @@ export default {
   name: "App",
   loggedIn: false,
   created() {
-    if (localStorage.getItem("jwt") != null) {
+    if (localStorage.getItem("jwt") != "null") {
       this.loggedIn = true;
-      console.log("token");
+      console.log(localStorage.getItem("jwt"));
     } else {
       this.loggedIn = false;
-      console.log("no token");
+      console.log(localStorage.getItem("jwt"));
     }
   },
   methods: {
     logout() {
       this.$store.commit("setToken", null);
+      this.$store.commit("clearAccount", null);
       this.$router.push("/login");
+      var storage = window.localStorage;
+      storage.clear();
     }
+  },
+  mounted() {
+    // Clears storage when browser is closed.
+    // window.onbeforeunload = function() {
+    //   var storage = window.localStorage;
+    //   storage.clear();
+    //};
   }
 };
 </script>
