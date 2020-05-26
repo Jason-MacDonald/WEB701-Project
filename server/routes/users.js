@@ -79,6 +79,7 @@ router.get("/users", (req, res) => {
 
 // ##### GET USER #####
 router.get("/users/account", authenticateToken, (req, res) => {
+  console.log(req.user.email);
   User.findOne({
     where: { email: req.user.email },
   })
@@ -91,17 +92,15 @@ router.get("/users/account", authenticateToken, (req, res) => {
 });
 
 // ##### UPDATE USER #####
-router.put("/user/:id", (req, res) => {
+router.put("/users/account/update", (req, res) => {
+  console.log(req.body.name);
   if (!req.body.name) {
     res.status(400);
     res.json({
       error: "Bad Data",
     });
   } else {
-    User.update(
-      { name: req.body.name, email: req.body.email },
-      { where: { id: req.params.id } }
-    )
+    User.update({ name: req.body.name }, { where: { id: req.body.id } })
       .then(() => {
         res.send("User Updated");
       })
@@ -126,8 +125,8 @@ router.delete("/user/:id", (req, res) => {
 
 // ##### MIDDLEWARE #####
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  console.log(req.headers["authorization"]);
+  const token = req.headers["authorization"];
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
