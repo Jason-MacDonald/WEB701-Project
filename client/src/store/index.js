@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    token: localStorage.getItem("jwt"),
+    account: null,
     selectedEventIndex: 0,
     selectedItemIndex: 0,
     selectedMemberIndex: 0,
@@ -34,9 +36,40 @@ export default new Vuex.Store({
     updateSelectedMemberIndex(state, index) {
       state.selectedMemberIndex = index;
     },
+    setAccountDetails(state, account) {
+      state.account = account;
+    },
+    // ##### TOKEN #####
+    setToken(state, token) {
+      state.token = token;
+      localStorage.setItem("jwt", token);
+    },
   },
   actions: {
     // ##### API CALLS #####
+    // ### ACCOUNT ###
+    async register(unused, user) {
+      await axios.post("http://localhost:3000/api/users/register", user);
+    },
+    async login({ commit }, user) {
+      let jwt = await (
+        await axios.post("http://localhost:3000/api/users/login", user)
+      ).data;
+      commit("setToken", jwt);
+    },
+    async getAccount({ commit }) {
+      const endpoint = await axios.get(
+        "http://localhost:3000/api/users/account",
+        {
+          headers: { authorization: localStorage.getItem("jwt") },
+        }
+      );
+      commit("setAccountDetails", endpoint.data);
+    },
+    async putUser(unsued, user) {
+      axios.put("http://localhost:3000/api/users/account/update", user);
+    },
+
     // ### GET ALL ###
     async getEvents({ commit }) {
       const endpoint = await axios.get("http://localhost:3000/api/events");
@@ -80,6 +113,11 @@ export default new Vuex.Store({
     },
     async selectMember({ commit }, index) {
       commit("updateSelectedMemberIndex", index);
+    },
+  },
+  getters: {
+    isAuthenticated(state) {
+      return state.token != null;
     },
   },
   modules: {},
