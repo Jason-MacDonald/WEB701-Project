@@ -12,7 +12,7 @@ require("dotenv").config();
 // ##### POST USER #####
 router.post("/users/register", (req, res) => {
   const userData = {
-    name: req.body.name,
+    name: "",
     email: req.body.email,
     password: req.body.password,
   };
@@ -51,10 +51,7 @@ router.post("/users/login", (req, res) => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
           let accessToken = jwt.sign(
             user.dataValues,
-            process.env.ACCESS_TOKEN_SECRET,
-            {
-              expiresIn: 1440,
-            }
+            process.env.ACCESS_TOKEN_SECRET
           );
           res.send(accessToken);
         } else {
