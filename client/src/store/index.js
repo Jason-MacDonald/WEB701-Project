@@ -102,6 +102,11 @@ export default new Vuex.Store({
       await axios.post("http://localhost:3000/api/item", data);
       this.dispatch("getItem");
     },
+    // ### PUT ###
+    async putItem(unsued, item) {
+      axios.put("http://localhost:3000/api/item", item);
+      this.dispatch("getItems");
+    },
     // ### DELETE ###
     async deleteEvent(unused, id) {
       await axios.delete("http://localhost:3000/api/event/" + id);

@@ -21,7 +21,8 @@ export default {
     submitNewEvent() {
       let item = {
         name: this.name,
-        description: this.description
+        description: this.description,
+        active: true
       };
       this.$store.dispatch("postNewItem", item);
       this.name = "";

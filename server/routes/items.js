@@ -22,7 +22,7 @@ router.post("/item", (req, res) => {
 
 // ##### GET ALL ITEMS #####
 router.get("/items", (req, res) => {
-  Item.findAll({ order: [["id", "DESC"]] })
+  Item.findAll({ where: { active: true }, order: [["id", "DESC"]] })
     .then((items) => {
       res.json(items);
     })
@@ -32,16 +32,18 @@ router.get("/items", (req, res) => {
 });
 
 // ##### UPDATE ITEM #####
-router.put("/item/:id", (req, res) => {
-  if (!req.body.name) {
+router.put("/item", (req, res) => {
+  if (!req.body) {
     res.status(400);
     res.json({
       error: "Bad Data",
     });
   } else {
     Item.update(
-      { name: req.body.name, description: req.body.description },
-      { where: { id: req.params.id } }
+      {
+        active: req.body.active,
+      },
+      { where: { id: req.body.id } }
     )
       .then(() => {
         res.send("Item Updated");
