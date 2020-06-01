@@ -45,7 +45,6 @@ export default {
         password: this.password
       };
       await this.$store.dispatch("register", user);
-      await this.$store.dispatch("login", user);
       this.$router.push("/account");
     }
   }

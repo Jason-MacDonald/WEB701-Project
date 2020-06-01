@@ -32,15 +32,16 @@ export default {
   data: () => ({
     account: {} 
   }),
-  created() {
+  async created() {
     try{
-      this.$store.dispatch("getAccount");
+      await this.$store.dispatch("getAccount");
       this.account = this.$store.state.account;
     }
     catch(ex) {
       console.log("Error ACC001: " + ex.message);
       alert("Error ACC001: The system was unable to get account information.");
-    }   
+    }  
+
   },
   methods: {
     updateUserName() {
@@ -53,6 +54,7 @@ export default {
 
       try{
         this.$store.dispatch("putAccount", account);
+        alert("Your account has been updated successfully.");
       }
       catch(ex) {
         console.log("Error ACC002: " + ex.message);

@@ -57,12 +57,12 @@ export default new Vuex.Store({
     // ### ACCOUNT ###
     async register(unused, user) {
       await axios.post("http://localhost:3000/api/users/register", user);
+      await this.dispatch("login", user);
     },
     async login({ commit }, user) {
-      let jwt = await (
-        await axios.post("http://localhost:3000/api/users/login", user)
-      ).data;
+      let jwt = (await axios.post("http://localhost:3000/api/users/login", user)).data;
       commit("setToken", jwt);
+      this.dispatch("getAccount");
     },
     async getAccount({ commit }) {
       const endpoint = await axios.get(
@@ -109,6 +109,7 @@ export default new Vuex.Store({
     },
     // ### PUT ###
     async putItem(unsued, item) {
+      item.active = false;
       axios.put("http://localhost:3000/api/item", item);
       this.dispatch("getItems");
     },

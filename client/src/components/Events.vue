@@ -44,7 +44,6 @@
 <script>
 export default {
   name: "Events",
-
   created() {
     try{
       this.$store.dispatch("getEvents");    
@@ -59,12 +58,12 @@ export default {
     setSelectedEventIndex(index) {
       try{
         this.$store.dispatch("selectEvent", index);    
-        this.$router.push("/event"); 
+        this.$router.push("/event");
       }
       catch(ex) {
         console.log("Error EVS002: " + ex.message);
-        alert("Error EVS002: The system was unable to update your account.");
-      }
+        alert("Error EVS002: The system was unable to get event information.");
+      } 
     }
   }
 };

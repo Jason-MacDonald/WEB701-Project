@@ -1,11 +1,18 @@
 <template>
   <v-container>
     <v-card class="px-4 pt-4">
+      <!-- ##### LOGIN FORM ##### -->
       <v-form>
-        <h2 class="px-2 pt-1">Login</h2>
 
-        <v-text-field class="px-2 pt-1" v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <!-- ##### LOGIN TITLE ###### -->
+        <h2 class="px-2 pt-1">
+          Login
+        </h2>
 
+        <!-- ##### EMAIL INPUT ##### -->
+        <v-text-field class="px-2 pt-1" v-model="email" :rules="emailRules" label="E-mail" required/>
+
+        <!-- ##### PASSWORD INPUT ##### -->
         <v-text-field
           class="px-2 pt-1"
           v-model="password"
@@ -13,11 +20,19 @@
           :rules="passwordRules"
           label="Password"
           required
-        ></v-text-field>
+        />
 
         <div class="px-2 pb-5">
-          <v-btn @click="login">Login</v-btn>
-          <router-link class="mx-3" style="text-decoration: none;" to="/register">Create new account</router-link>
+          <!-- ##### LOGIN BUTTON ##### -->
+          <v-btn @click="login">
+            Login
+          </v-btn>
+
+          <!-- ##### LINK TO REGISTER ##### -->
+          <router-link class="mx-3" style="text-decoration: none;" to="/register">
+            Create new account
+          </router-link>
+
         </div>
       </v-form>
     </v-card>
@@ -30,23 +45,30 @@ export default {
   data: () => ({
     password: "",
     passwordRules: [
-      v => !!v || "Password is required",
-      v => (v && v.length <= 40) || "Password must be less than 40 characters"
+      password => !!password || "Password is required",
+      password => (password && password.length <= 40) || "Password must be less than 40 characters"
     ],
     email: "",
     emailRules: [
-      v => !!v || "E-mail is required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      email => !!email || "E-mail is required",
+      email => /.+@.+\..+/.test(email) || "E-mail must be valid"
     ]
   }),
   methods: {
-    login() {
+    async login() {
       var user = {
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch("login", user);
-      this.$router.push("/account");
+
+      try{
+        await this.$store.dispatch("login", user);
+        this.$router.push("/account");
+      }
+      catch(ex) {
+        console.log("Error LOG002: " + ex.message);
+        alert("Error LOG002: The system was unable to log you in.");
+      } 
     }
   }
 };
