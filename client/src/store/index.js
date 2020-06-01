@@ -14,6 +14,7 @@ export default new Vuex.Store({
     events: [],
     items: [],
     members: [],
+    itemBids: []
   },
   mutations: {
     // ##### REFRESH #####
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     refreshMembers(state, members) {
       state.members = members;
+    },
+    refreshItemBids(state, itemBids) {
+      state.itemBids = itemBids;
     },
     // ##### UPDATE INDEX #####
     updateSelectedEventIndex(state, index) {
@@ -69,7 +73,7 @@ export default new Vuex.Store({
       );
       commit("setAccountDetails", endpoint.data);
     },
-    async putUser(unsued, user) {
+    async putAccount(unsued, user) {
       axios.put("http://localhost:3000/api/users/account/update", user);
     },
 
@@ -89,21 +93,19 @@ export default new Vuex.Store({
       var members = endpoint.data;
       commit("refreshMembers", members);
     },
-    async getBids(unused, id) {
+    async getBids({commit}, id) {
       const endpoint = await axios.get("http://localhost:3000/api/bids/" + id);
-      return endpoint.data;
+      var itemBids = endpoint.data;
+      commit("refreshItemBids", itemBids);
     },
     // ### POST ###
     async postNewEvent(unused, data) {
-      await axios.post("http://localhost:3000/api/event", data);
+      await axios.post("http://localhost:3000/api/event", data, { headers: { authorization: localStorage.getItem("jwt") }});
       this.dispatch("getEvents");
     },
     async postNewItem(unused, data) {
-      console.log(localStorage.getItem("jwt"));
-      await axios.post("http://localhost:3000/api/item", data, {
-        headers: { authorization: localStorage.getItem("jwt") },
-      });
-      this.dispatch("getItem");
+      await axios.post("http://localhost:3000/api/item", data, { headers: { authorization: localStorage.getItem("jwt") }});
+      this.dispatch("getItems");
     },
     // ### PUT ###
     async putItem(unsued, item) {
@@ -113,9 +115,9 @@ export default new Vuex.Store({
     // ### DELETE ###
     async deleteEvent(unused, id) {
       await axios.delete("http://localhost:3000/api/event/" + id);
+      this.dispatch("getEvents");
     },
     async deleteItem(unused, id) {
-      console.log(id);
       await axios.delete("http://localhost:3000/api/item/" + id);
     },
     // ##### STORE MANIPULATIN #####

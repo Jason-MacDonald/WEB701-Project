@@ -40,12 +40,12 @@ export default {
     ]
   }),
   methods: {
-    async login() {
+    login() {
       var user = {
         email: this.email,
         password: this.password
       };
-      await this.$store.dispatch("login", user);
+      this.$store.dispatch("login", user);
       this.$router.push("/account");
     }
   }

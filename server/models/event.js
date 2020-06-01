@@ -21,6 +21,9 @@ module.exports = db.sequelize.define(
     endDate: {
       type: Sequelize.DATE,
     },
+    email: {
+      type: Sequelize.STRING,
+    },
   },
   {
     timestamps: false,

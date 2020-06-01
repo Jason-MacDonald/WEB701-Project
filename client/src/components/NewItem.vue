@@ -26,6 +26,8 @@ export default {
         email: null
       };
       this.$store.dispatch("postNewItem", item);
+      this.$store.dispatch("getItems");
+      this.$router.push("/items");
       this.name = "";
       this.description = "";
     }

@@ -121,9 +121,11 @@ export default {
         name: this.name,
         description: this.description,
         startDate: this.startDate + " " + this.startTime,
-        endDate: this.endDate + " " + this.endTime
+        endDate: this.endDate + " " + this.endTime,
+        email: null
       };
       this.$store.dispatch("postNewEvent", event);
+      this.$router.push("/events");
       this.name = "";
       this.description = "";
       this.startDate = null;
