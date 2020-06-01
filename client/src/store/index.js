@@ -99,7 +99,10 @@ export default new Vuex.Store({
       this.dispatch("getEvents");
     },
     async postNewItem(unused, data) {
-      await axios.post("http://localhost:3000/api/item", data);
+      console.log(localStorage.getItem("jwt"));
+      await axios.post("http://localhost:3000/api/item", data, {
+        headers: { authorization: localStorage.getItem("jwt") },
+      });
       this.dispatch("getItem");
     },
     // ### PUT ###

@@ -18,6 +18,9 @@ module.exports = db.sequelize.define(
     active: {
       type: Sequelize.BOOLEAN,
     },
+    email: {
+      type: Sequelize.STRING,
+    },
   },
   {
     timestamps: false,

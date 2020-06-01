@@ -4,7 +4,7 @@
       <v-form>
         <v-text-field label="Item Title" v-model="name" />
         <v-textarea label="Item Description" v-model="description" />
-        <v-btn @click="submitNewEvent">Submit Item</v-btn>
+        <v-btn @click="submitNewItem">Submit Item</v-btn>
       </v-form>
     </v-card>
   </v-container>
@@ -18,11 +18,12 @@ export default {
     description: ""
   }),
   methods: {
-    submitNewEvent() {
+    submitNewItem() {
       let item = {
         name: this.name,
         description: this.description,
-        active: true
+        active: true,
+        email: null
       };
       this.$store.dispatch("postNewItem", item);
       this.name = "";

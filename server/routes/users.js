@@ -126,7 +126,7 @@ router.delete("/user/:id", (req, res) => {
 
 // ##### MIDDLEWARE #####
 function authenticateToken(req, res, next) {
-  console.log(req.headers["authorization"]);
+  console.log("Header: " + req.headers["authorization"]);
   const token = req.headers["authorization"];
   if (token == null) return res.sendStatus(401);
 
