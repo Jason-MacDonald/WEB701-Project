@@ -15,6 +15,9 @@ module.exports = db.sequelize.define(
     description: {
       type: Sequelize.STRING,
     },
+    email: {
+      type: Sequelize.STRING,
+    },
   },
   {
     timestamps: false,

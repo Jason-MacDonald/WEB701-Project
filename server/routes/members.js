@@ -2,6 +2,10 @@ var express = require("express");
 var router = express.Router();
 const Member = require("../models/member");
 
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
+
 // ##### POST MEMBER #####
 router.post("/member", (req, res) => {
   if (!req.body.name) {
@@ -31,8 +35,22 @@ router.get("/members", (req, res) => {
     });
 });
 
+// ##### GET MEMBER #####
+router.get("/member", authenticateToken, (req, res) => {
+  console.log(req.user.email);
+  Member.findOne({
+    where: { email: req.user.email },
+  })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.send("Error: " + err);
+    });
+});
+
 // ##### UPDATE MEMBER #####
-router.put("/member/:id", (req, res) => {
+router.put("/member", authenticateToken, (req, res) => {
   if (!req.body.name) {
     res.status(400);
     res.json({
@@ -40,8 +58,8 @@ router.put("/member/:id", (req, res) => {
     });
   } else {
     Member.update(
-      { name: req.body.name, description: req.body.description },
-      { where: { id: req.params.id } }
+      { description: req.body.description },
+      { where: { email: req.user.email } }
     )
       .then(() => {
         res.send("Member Updated");
@@ -64,5 +82,18 @@ router.delete("/member/:id", (req, res) => {
       res.send("Error: " + err);
     });
 });
+
+// ##### MIDDLEWARE #####
+function authenticateToken(req, res, next) {
+  console.log("Header: " + req.headers["authorization"]);
+  const token = req.headers["authorization"];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
 
 module.exports = router;

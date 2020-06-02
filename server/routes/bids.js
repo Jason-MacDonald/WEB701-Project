@@ -2,8 +2,12 @@ var express = require("express");
 var router = express.Router();
 const Bid = require("../models/bid");
 
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
+
 // ##### POST BID #####
-router.post("/bids", (req, res) => {
+router.post("/bid", authenticateToken, (req, res) => {
   console.log(req.body);
   if (!req.body.itemID) {
     res.status(400);
@@ -11,6 +15,9 @@ router.post("/bids", (req, res) => {
       error: "Bad Data",
     });
   } else {
+    req.body.email = req.user.email;
+    req.body.userID = req.user.id;
+
     console.log(req.body);
     Bid.create(req.body)
       .then(() => {
@@ -67,5 +74,18 @@ router.get("/bids/:id", (req, res) => {
 //       res.send("Error: " + err);
 //     });
 // });
+
+// ##### MIDDLEWARE #####
+function authenticateToken(req, res, next) {
+  console.log("Header: " + req.headers["authorization"]);
+  const token = req.headers["authorization"];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
 
 module.exports = router;

@@ -21,6 +21,27 @@ module.exports = db.sequelize.define(
     email: {
       type: Sequelize.STRING,
     },
+    height: {
+      type: Sequelize.INTEGER,
+    },
+    width: {
+      type: Sequelize.INTEGER,
+    },
+    length: {
+      type: Sequelize.INTEGER,
+    },
+    weight: {
+      type: Sequelize.INTEGER,
+    },
+    fragility: {
+      type: Sequelize.INTEGER,
+    },
+    freightCost: {
+      type: Sequelize.DECIMAL,
+    },
+    estimatedValue: {
+      type: Sequelize.DECIMAL,
+    },
   },
   {
     timestamps: false,

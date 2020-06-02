@@ -15,7 +15,7 @@ module.exports = db.sequelize.define(
     userID: {
       type: Sequelize.INTEGER,
     },
-    userEmail: {
+    email: {
       type: Sequelize.STRING,
     },
     bid: {

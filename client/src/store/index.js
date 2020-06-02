@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     token: localStorage.getItem("jwt"),
     account: null,
+    member: null,
     selectedEventIndex: 0,
     selectedItemIndex: 0,
     selectedMemberIndex: 0,
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     setAccountDetails(state, account) {
       state.account = account;
     },
+    setMemberDetails(state, member){
+      state.member = member;
+    },
     // ##### TOKEN #####
     setToken(state, token) {
       state.token = token;
@@ -72,6 +76,15 @@ export default new Vuex.Store({
         }
       );
       commit("setAccountDetails", endpoint.data);
+    },
+    async getMember({ commit }) {
+      const endpoint = await axios.get(
+        "http://localhost:3000/api/member",
+        {
+          headers: { authorization: localStorage.getItem("jwt") },
+        }
+      );
+      commit("setMemberDetails", endpoint.data);
     },
     async putAccount(unsued, user) {
       axios.put("http://localhost:3000/api/users/account/update", user);
@@ -107,11 +120,18 @@ export default new Vuex.Store({
       await axios.post("http://localhost:3000/api/item", data, { headers: { authorization: localStorage.getItem("jwt") }});
       this.dispatch("getItems");
     },
+    async postBid(unused, bid) {
+      await axios.post("http://localhost:3000/api/bid", bid, { headers: { authorization: localStorage.getItem("jwt") }});
+    },
     // ### PUT ###
     async putItem(unsued, item) {
       item.active = false;
       axios.put("http://localhost:3000/api/item", item);
       this.dispatch("getItems");
+    },
+    async putMember(unsued, member) {
+      await axios.put("http://localhost:3000/api/member", member, { headers: { authorization: localStorage.getItem("jwt") }});
+      this.dispatch("getMembers");
     },
     // ### DELETE ###
     async deleteEvent(unused, id) {
