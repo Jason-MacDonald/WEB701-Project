@@ -4,7 +4,6 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import moment from "moment";
-import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 
