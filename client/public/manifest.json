@@ -1,0 +1,16 @@
+{
+    "name": "NGC",
+    "short_name": "ngc",
+    "icons": [
+        {
+            "src": "./img/icons/msapplication-icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png" 
+        }
+    ],
+    "orientation": "landscape",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#4DBA87"
+}
