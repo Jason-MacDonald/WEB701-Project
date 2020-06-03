@@ -22,6 +22,7 @@ Vue.filter("formatTime", function(value) {
   }
 });
 
+
 new Vue({
   router,
   store,
